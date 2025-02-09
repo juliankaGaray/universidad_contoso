@@ -1,0 +1,78 @@
+@startuml
+skinparam linetype ortho
+skinparam rectangle {
+    BackgroundColor #EFEFEF
+    BorderColor Black
+    Shadowing true
+}
+
+' Capas de la arquitectura
+rectangle "Capa de Presentación (Frontend)" {
+    [Interfaz de Usuario] as UI
+    UI --> (Controladores) : Usa
+}
+
+rectangle "Capa de Lógica de Negocio (Backend)" {
+    (Controladores) as Controladores
+
+    package "Servicios" {
+        (InscripcionService)
+        (CursoService)
+        (EvaluacionService)
+        (HistorialAcademicoService)
+        (ProfesorService)
+        (DepartamentoService)
+    }
+
+    package "Modelos" {
+        (Usuario)
+        (Estudiante)
+        (Profesor)
+        (Curso)
+        (Inscripcion)
+        (Evaluacion)
+        (Departamento)
+        (HistorialAcademico)
+    }
+
+    Controladores --> InscripcionService : Usa
+    Controladores --> CursoService : Usa
+    Controladores --> EvaluacionService : Usa
+    Controladores --> HistorialAcademicoService : Usa
+    Controladores --> ProfesorService : Usa
+    Controladores --> DepartamentoService : Usa
+
+    InscripcionService --> Inscripcion : Gestiona
+    CursoService --> Curso : Gestiona
+    EvaluacionService --> Evaluacion : Gestiona
+    HistorialAcademicoService --> HistorialAcademico : Gestiona
+    ProfesorService --> Profesor : Gestiona
+    DepartamentoService --> Departamento : Gestiona
+}
+
+rectangle "Capa de Persistencia (Base de Datos)" {
+    [ORM] as ORM
+    (Base de Datos) as DB
+
+    Usuario --> ORM : Usa
+    Estudiante --> ORM : Usa
+    Profesor --> ORM : Usa
+    Curso --> ORM : Usa
+    Inscripcion --> ORM : Usa
+    Evaluacion --> ORM : Usa
+    Departamento --> ORM : Usa
+    HistorialAcademico --> ORM : Usa
+
+    ORM --> DB : Accede
+}
+
+' Relaciones con actores
+actor Estudiante as Est
+actor Profesor as Prof
+actor Departamento as Dept
+
+Est --> UI : Interactúa
+Prof --> UI : Interactúa
+Dept --> UI : Interactúa
+
+@enduml

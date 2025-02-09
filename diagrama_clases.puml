@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' Clase base
+class Usuario {
+    + ID : int
+    + nombre : str
+    + email : str
+    + telefono : str
+    + __str__() : str
+}
+
+' Herencia
+class Estudiante {
+    + fecha_inscripcion : date
+}
+class Profesor {
+    + especialidad : str
+}
+
+Usuario <|-- Estudiante
+Usuario <|-- Profesor
+
+' Otras clases
+class Curso {
+    + ID : int
+    + titulo : str
+    + creditos : int
+    + descripcion : str
+}
+
+class Inscripcion {
+    + ID : int
+    + fecha_inscripcion : date
+}
+
+class Evaluacion {
+    + ID : int
+    + tipo : str
+    + nota : float
+    + fecha : date
+}
+
+class Departamento {
+    + ID : int
+    + nombre : str
+    + descripcion : str
+}
+
+class HistorialAcademico {
+    + ID : int
+    + promedio_general : float
+    + estado : str
+}
+
+' Relaciones complejas
+Estudiante "1" -- "0..*" Inscripcion : "realiza"
+Curso "1" -- "0..*" Inscripcion : "incluye"
+Profesor "0..*" -- "0..*" Curso : "imparte"
+Inscripcion "1" -- "0..*" Evaluacion : "evalúa"
+Departamento "1" -- "0..*" Curso : "ofrece"
+Departamento "1" -- "0..*" Profesor : "gestiona"
+Estudiante "1" -- "1" HistorialAcademico : "posee"
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+skinparam linetype ortho
+
+' Actores
+actor Estudiante
+actor Profesor
+actor Departamento
+
+' Casos de uso
+rectangle Sistema {
+    (Inscribirse en Curso) as (Inscribirse)
+    (Impartir Curso) as (Impartir)
+    (Gestionar Cursos) as (Gestionar)
+    (Evaluar Estudiante) as (Evaluar)
+    (Consultar Historial Académico) as (ConsultarHistorial)
+    (Registrar Evaluación) as (RegistrarEvaluacion)
+    (Ofrecer Curso) as (Ofrecer)
+    (Gestionar Profesores) as (GestionarProfesores)
+}
+
+' Relaciones entre actores y casos de uso
+Estudiante --> (Inscribirse)
+Estudiante --> (ConsultarHistorial)
+Profesor --> (Impartir)
+Profesor --> (Evaluar)
+Profesor --> (RegistrarEvaluacion)
+Departamento --> (Gestionar)
+Departamento --> (Ofrecer)
+Departamento --> (GestionarProfesores)
+
+' Relaciones entre casos de uso
+(Inscribirse) .> (ConsultarHistorial) : incluye
+(Impartir) .> (Evaluar) : incluye
+(Gestionar) .> (Ofrecer) : incluye
+(Gestionar) .> (GestionarProfesores) : incluye
+
+@enduml
