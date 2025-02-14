@@ -14,8 +14,49 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path
+from gestion_academica import views
+from gestion_academica.views_usuario import UsuarioListCreateView
+from django.http import HttpResponse
+
+def home_redirect(request):
+    return redirect('usuario-list')  # Redirige a la vista de lista de usuarios
+    
+
 
 urlpatterns = [
+path('', home_redirect, name='home'),  # Redirige al abrir la página principal
     path('admin/', admin.site.urls),
+    # URLs para Usuario
+    path('usuarios/', UsuarioListCreateView.as_view(), name= 'usuario-list'),
+    path('usuarios/<int:pk>/', views.UsuarioDetailView.as_view(), name='usuario-detail'),
+
+    # URLs para Estudiante
+    path('estudiantes/', views.EstudianteListCreateView.as_view(), name='estudiante-list'),
+    path('estudiantes/<int:pk>/', views.EstudianteDetailView.as_view(), name='estudiante-detail'),
+
+    # URLs para Profesor
+    path('profesores/', views.ProfesorListCreateView.as_view(), name='profesor-list'),
+    path('profesores/<int:pk>/', views.ProfesorDetailView.as_view(), name='profesor-detail'),
+
+    # URLs para Departamento
+    path('departamentos/', views.DepartamentoListCreateView.as_view(), name='departamento-list'),
+    path('departamentos/<int:pk>/', views.DepartamentoDetailView.as_view(), name='departamento-detail'),
+
+    # URLs para Curso
+    path('cursos/', views.CursoListCreateView.as_view(), name='curso-list'),
+    path('cursos/<int:pk>/', views.CursoDetailView.as_view(), name='curso-detail'),
+
+    # URLs para Inscripcion
+    path('inscripciones/', views.InscripcionListCreateView.as_view(), name='inscripcion-list'),
+    path('inscripciones/<int:pk>/', views.InscripcionDetailView.as_view(), name='inscripcion-detail'),
+
+    # URLs para Evaluacion
+    path('evaluaciones/', views.EvaluacionListCreateView.as_view(), name='evaluacion-list'),
+    path('evaluaciones/<int:pk>/', views.EvaluacionDetailView.as_view(), name='evaluacion-detail'),
+
+    # URLs para Historial Academico
+    path('historial/', views.HistorialAcademicoListCreateView.as_view(), name='historial-list'),
+    path('historial/<int:pk>/', views.HistorialAcademicoDetailView.as_view(), name='historial-detail'),
 ]

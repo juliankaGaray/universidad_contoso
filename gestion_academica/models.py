@@ -9,13 +9,16 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nombre
 
-# Estudiante hereda de Usuario
-class Estudiante(Usuario):
+# Estudiante asociado a Usuario
+class Estudiante(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     fecha_inscripcion = models.DateField()
 
-# Profesor hereda de Usuario
-class Profesor(Usuario):
+# Profesor asociado a Usuario
+class Profesor(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     especialidad = models.CharField(max_length=100)
+
 
 # Departamento académico
 class Departamento(models.Model):
