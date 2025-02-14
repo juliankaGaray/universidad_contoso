@@ -9,13 +9,21 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nombre
 
-# Estudiante hereda de Usuario
-class Estudiante(Usuario):
+# Estudiante ahora usa OneToOneField en lugar de herencia directa
+class Estudiante(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     fecha_inscripcion = models.DateField()
 
-# Profesor hereda de Usuario
-class Profesor(Usuario):
+    def __str__(self):
+        return f"Estudiante: {self.usuario.nombre}"
+
+# Profesor ahora usa OneToOneField en lugar de herencia directa
+class Profesor(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     especialidad = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Profesor: {self.usuario.nombre} - {self.especialidad}"
 
 # Departamento académico
 class Departamento(models.Model):
@@ -43,7 +51,7 @@ class Inscripcion(models.Model):
     fecha_inscripcion = models.DateField()
 
     def __str__(self):
-        return f"{self.estudiante} en {self.curso}"
+        return f"{self.estudiante.usuario.nombre} en {self.curso.titulo}"
 
 # Evaluación asociada a una Inscripción
 class Evaluacion(models.Model):
@@ -53,7 +61,7 @@ class Evaluacion(models.Model):
     fecha = models.DateField()
 
     def __str__(self):
-        return f"{self.tipo} - {self.nota}"
+        return f"{self.tipo} - {self.nota} ({self.inscripcion.estudiante.usuario.nombre})"
 
 # Historial Académico del Estudiante
 class HistorialAcademico(models.Model):
@@ -62,4 +70,4 @@ class HistorialAcademico(models.Model):
     estado = models.CharField(max_length=50)  # Ej: Activo, Graduado, Suspendido
 
     def __str__(self):
-        return f"Historial de {self.estudiante}"
+        return f"Historial de {self.estudiante.usuario.nombre}"

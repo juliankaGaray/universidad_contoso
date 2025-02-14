@@ -15,7 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# 🚀 HABILITAR CORS PARA REACT
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
 ]
@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # 🚀 Agregar Django REST Framework y CORS Headers
+    'gestion_academica',  
     'rest_framework',
     'corsheaders',
 ]
