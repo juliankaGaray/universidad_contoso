@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h2 class="mb-4">¡BIENVENIDO!</h2>
+    <p class="consulta-texto">
+        <i class="bi bi-info-circle-fill"></i> Si algo no le está funcionando recuerde que se puede apoyar con nuestro departamento de tecnología PBX 6812407 EXT 301
+    </p>
+    
+    <nav>
+        <!-- Sección de información adicional -->
+
+        
+        <div class="info-section">
+            
+            <div class="info-box">
+                <a href="{% url 'crear_estudiante' %}" class="btn btn-none fw-bold">NUEVO ESTUDIANTE</a>
+                <p>Crea y registra a los estudiantes de nuevo ingreso.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'lista_estudiantes' %}" class="btn btn-none fw-bold">LISTA ESTUDIANTES</a>
+                <p>Consulta y gestiona la información de los estudiantes registrados.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'crear_profesor' %}" class="btn btn-none fw-bold"> NUEVO PROFESORE</a>
+                <p>Administra los perfiles de los docentes y sus asignaciones.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'lista_profesores' %}" class="btn btn-none fw-bold">LISTA PROFESORES</a>
+                <p>Consulta y gestiona la información de los estudiantes registrados.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'crear_curso' %}" class="btn btn-none fw-bold"> NUEVO CURSO</a>
+                <p>Gestiona los cursos disponibles y su programación.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'lista_cursos' %}" class="btn btn-none fw-bold">LISTA CURSOS</a>
+                <p>Consulta y gestiona la información de los estudiantes registrados.</p>
+            </div>
+            <div class="info-box">
+                <a href="{% url 'crear_departamento' %}"  class="btn btn-none fw-bold">NUEVO DEPARTAMENTO</a>
+                <p>Genera, consulta y administra los departamentos academicos.</p>
+                
+            </div>
+            <div class="info-box">
+                <a href="{% url 'lista_departamentos' %}" class="btn btn-none fw-bold">LISTA DE DEPARTAMENTOS</a>
+                <p>Consulta y gestiona la información de los estudiantes registrados.</p>
+            </div>
+        </div>
+    </div>
+   
+</nav>
+    
+</div>
+
+{% endblock %}

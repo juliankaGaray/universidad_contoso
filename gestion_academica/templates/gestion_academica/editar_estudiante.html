@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Estudiante</title>
+</head>
+<body>
+    <h1>Editar Estudiante: {{ estudiante.nombre }} {{ estudiante.apellido }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Actualizar</button>
+    </form>
+    <a href="{% url 'detalle_estudiante' estudiante.id %}">Cancelar</a>
+</body>
+{% endblock %}
+</html>

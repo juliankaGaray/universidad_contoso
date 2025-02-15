@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Curso</title>
+</head>
+<body>
+    <h1>{{ curso.titulo }}</h1>
+    <nav>
+        <a href="{% url 'lista_cursos' %}">Volver a la lista de cursos</a> | 
+        <a href="{% url 'home' %}">Inicio</a>
+    </nav>
+    <p><strong>Créditos:</strong> {{ curso.creditos }}</p>
+    <p><strong>Descripción:</strong> {{ curso.descripcion }}</p>
+    <p><strong>Departamento:</strong> {{ curso.departamento.nombre }}</p>
+    
+    <h2>Profesores</h2>
+    <ul>
+        {% for profesor in curso.profesores.all %}
+            <li>{{ profesor.nombre }} ({{ profesor.especialidad }})</li>
+        {% empty %}
+            <li>No se han asignado profesores a este curso.</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Inscripciones</h2>
+    <ul>
+        {% for inscripcion in inscripciones %}
+            <li>
+                {{ inscripcion.estudiante.nombre }} {{ inscripcion.estudiante.apellido }} - 
+                Inscrito el: {{ inscripcion.fecha_inscripcion }}
+            </li>
+        {% empty %}
+            <li>No hay inscripciones registradas para este curso.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

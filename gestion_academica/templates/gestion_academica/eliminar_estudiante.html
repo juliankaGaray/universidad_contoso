@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Estudiante</title>
+</head>
+<body>
+    <h1>Eliminar Estudiante</h1>
+    <p>¿Estás seguro que deseas eliminar a {{ estudiante.nombre }} {{ estudiante.apellido }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar</button>
+    </form>
+    <a href="{% url 'detalle_estudiante' estudiante.id %}">Cancelar</a>
+</body>
+</html>

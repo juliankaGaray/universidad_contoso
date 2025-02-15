@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Estudiante</title>
+</head>
+<body>
+    <h1>Detalle de {{ estudiante.nombre }} {{ estudiante.apellido }}</h1>
+    <nav>
+        <a href="{% url 'lista_estudiantes' %}">Volver a la lista de estudiantes</a> | 
+        <a href="{% url 'home' %}">Inicio</a>
+    </nav>
+    <p><strong>Fecha de Inscripción:</strong> {{ estudiante.fecha_inscripcion }}</p>
+    
+    {% if historial %}
+        <h2>Historial Académico</h2>
+        <p><strong>Promedio General:</strong> {{ historial.promedio_general }}</p>
+        <p><strong>Estado:</strong> {{ historial.estado }}</p>
+    {% else %}
+        <p>Este estudiante aún no tiene un historial académico registrado.</p>
+    {% endif %}
+</body>
+</html>

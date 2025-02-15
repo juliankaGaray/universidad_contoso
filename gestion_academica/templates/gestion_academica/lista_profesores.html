@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Profesores</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">Profesores</h1>
+    <nav class="mb-3">
+      <a href="{% url 'home' %}" class="btn btn-secondary">Inicio</a>
+      <a href="{% url 'crear_profesor' %}" class="btn btn-primary">Crear Nuevo Profesor</a>
+    </nav>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Especialidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for profesor in profesores %}
+          <tr>
+            <td>{{ profesor.id }}</td>
+            <td>{{ profesor.nombre }}</td>
+            <td>{{ profesor.email }}</td>
+            <td>{{ profesor.telefono }}</td>
+            <td>{{ profesor.especialidad }}</td>
+            <td>
+              <a href="{% url 'detalle_profesor' profesor.id %}" class="btn btn-info btn-sm">Ver</a>
+              <a href="{% url 'editar_profesor' profesor.id %}" class="btn btn-warning btn-sm">Editar</a>
+              <a href="{% url 'eliminar_profesor' profesor.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">No hay profesores registrados.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      
+    </table>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+</html>
+
