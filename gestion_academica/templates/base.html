@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Académica</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #f0f8ff, #e6ffe6); color: #222; margin: 0; }
+        nav { background-color: #005f73; padding: 15px; display: flex; justify-content: center; }
+        nav a { color: #f0f8ff; margin: 0 15px; text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        .content { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/usuarios/">Usuarios</a>
+        <a href="/estudiantes/">Estudiantes</a>
+        <a href="/profesores/">Profesores</a>
+        <a href="/cursos/">Cursos</a>
+        <a href="/horarios/">Horarios</a>
+        <a href="/calificaciones/">Calificaciones</a>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Usuarios</h2>
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+    </tr>
+    {% for usuario in object_list %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+            <a href="{% url 'usuario-detail' usuario.id %}">Ver</a> |
+            <a href="{% url 'usuario-edit' usuario.id %}">Editar</a> |
+            <a href="{% url 'usuario-delete' usuario.id %}" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">No hay usuarios registrados.</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'usuario-create' %}">Agregar Nuevo Usuario</a>
+{% endblock %}

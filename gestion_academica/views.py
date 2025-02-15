@@ -5,6 +5,14 @@ from rest_framework.views import APIView
 from .models import Usuario, Estudiante, Profesor, Departamento, Curso, Inscripcion, Evaluacion, HistorialAcademico
 from .serializers import UsuarioSerializer, EstudianteSerializer, ProfesorSerializer, DepartamentoSerializer, CursoSerializer, InscripcionSerializer, EvaluacionSerializer, HistorialAcademicoSerializer
 
+def home_view(request):
+    return render(request, 'home.html')
+
+# Vistas para Usuario
+class UsuarioListCreateView(generics.ListCreateAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
 class UsuarioDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -73,4 +81,4 @@ class HistorialAcademicoDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = HistorialAcademicoSerializer
 
 
-
+# Create your views here.
