@@ -19,6 +19,7 @@ from django.urls import path
 from gestion_academica import views
 from gestion_academica.views_usuario import UsuarioListCreateView
 from django.http import HttpResponse
+from gestion_academica.views import estudiante_create_view
 
 def home_redirect(request):
     return redirect('usuario-list')  # Redirige a la vista de lista de usuarios
@@ -29,7 +30,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('usuarios/', views.UsuarioListCreateView.as_view(), name='usuario-list'),
     path('usuarios/<int:pk>/', views.UsuarioDetailView.as_view(), name='usuario-detail'),
-    path('estudiantes/', views.EstudianteListCreateView.as_view(), name='estudiante-list'),
+    path('estudiantes/nuevo/', estudiante_create_view, name='estudiante-create'),
     path('estudiantes/<int:pk>/', views.EstudianteDetailView.as_view(), name='estudiante-detail'),
     path('profesores/', views.ProfesorListCreateView.as_view(), name='profesor-list'),
     path('profesores/<int:pk>/', views.ProfesorDetailView.as_view(), name='profesor-detail'),

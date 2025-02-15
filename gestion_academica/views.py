@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +25,19 @@ class EstudianteListCreateView(generics.ListCreateAPIView):
 class EstudianteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Estudiante.objects.all()
     serializer_class = EstudianteSerializer
+
+# Nueva vista para mostrar el formulario de estudiantes
+def estudiante_create_view(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        correo = request.POST.get('correo')
+
+        if nombre and apellido and correo:
+            Estudiante.objects.create(nombre=nombre, apellido=apellido, correo=correo)
+            return redirect('estudiante-list')  # Redirige a la lista de estudiantes
+
+    return render(request, 'estudiante.html')
 
 # Vistas para Profesor
 class ProfesorListCreateView(generics.ListCreateAPIView):
@@ -79,6 +92,3 @@ class HistorialAcademicoListCreateView(generics.ListCreateAPIView):
 class HistorialAcademicoDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = HistorialAcademico.objects.all()
     serializer_class = HistorialAcademicoSerializer
-
-
-# Create your views here.
