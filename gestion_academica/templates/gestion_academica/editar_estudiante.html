@@ -1,20 +1,21 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Estudiante</title>
-</head>
-<body>
-    <h1>Editar Estudiante: {{ estudiante.nombre }} {{ estudiante.apellido }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Actualizar</button>
-    </form>
-    <a href="{% url 'detalle_estudiante' estudiante.id %}">Cancelar</a>
-</body>
+<div class="container mt-5">
+    <h1 class="text-primary text-center">Editar Estudiante</h1>
+    <h3 class="text-center text-muted">{{ estudiante.nombre }} {{ estudiante.apellido }}</h3>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-warning">Actualizar</button>
+                    <a href="{% url 'detalle_estudiante' estudiante.id %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
-</html>
