@@ -4,23 +4,36 @@
   <meta charset="UTF-8">
   <title>Detalle de Profesor</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 600px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container mt-4">
-    <h1>Detalle de Profesor</h1>
-    <div class="card">
+  <div class="container mt-5">
+    <h1 class="text-primary text-center">Detalle del Profesor</h1>
+    <div class="card shadow-sm">
       <div class="card-body">
-        <h3 class="card-title">{{ profesor.nombre }}</h3>
-        <p class="card-text"><strong>Email:</strong> {{ profesor.email }}</p>
-        <p class="card-text"><strong>Teléfono:</strong> {{ profesor.telefono }}</p>
-        <p class="card-text"><strong>Especialidad:</strong> {{ profesor.especialidad }}</p>
-        <a href="{% url 'editar_profesor' profesor.id %}" class="btn btn-warning">Editar</a>
-        <a href="{% url 'eliminar_profesor' profesor.id %}" class="btn btn-danger">Eliminar</a>
-        <a href="{% url 'lista_profesores' %}" class="btn btn-secondary">Volver al listado</a>
+        <h3 class="card-title text-center">{{ profesor.nombre }}</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Email:</strong> {{ profesor.email }}</li>
+          <li class="list-group-item"><strong>Teléfono:</strong> {{ profesor.telefono }}</li>
+          <li class="list-group-item"><strong>Especialidad:</strong> {{ profesor.especialidad }}</li>
+        </ul>
+        <div class="btn-group mt-4 justify-content-center">
+          <a href="{% url 'editar_profesor' profesor.id %}" class="btn btn-warning" aria-label="Editar profesor">Editar</a>
+          <a href="{% url 'eliminar_profesor' profesor.id %}" class="btn btn-danger" aria-label="Eliminar profesor">Eliminar</a>
+          <a href="{% url 'lista_profesores' %}" class="btn btn-secondary" aria-label="Volver al listado">Volver</a>
+        </div>
       </div>
     </div>
   </div>
-  
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
