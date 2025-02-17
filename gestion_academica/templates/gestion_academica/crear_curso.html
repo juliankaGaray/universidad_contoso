@@ -7,16 +7,36 @@
   <meta charset="UTF-8">
   <title>Crear Curso</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .card {
+      max-width: 500px;
+      margin: auto;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      font-size: 1.25rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container mt-4">
-    <h1>Crear Curso</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Guardar</button>
-      <a href="{% url 'lista_cursos' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div class="card-header">Crear Curso</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.as_p }}
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary mr-2">Guardar</button>
+            <a href="{% url 'lista_cursos' %}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 {% endblock %}
