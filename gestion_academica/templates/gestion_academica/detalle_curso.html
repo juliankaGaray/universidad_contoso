@@ -3,36 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle del Curso</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 700px;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ curso.titulo }}</h1>
-    <nav>
-        <a href="{% url 'lista_cursos' %}">Volver a la lista de cursos</a> | 
-        <a href="{% url 'home' %}">Inicio</a>
-    </nav>
-    <p><strong>Créditos:</strong> {{ curso.creditos }}</p>
-    <p><strong>Descripción:</strong> {{ curso.descripcion }}</p>
-    <p><strong>Departamento:</strong> {{ curso.departamento.nombre }}</p>
-    
-    <h2>Profesores</h2>
-    <ul>
-        {% for profesor in curso.profesores.all %}
-            <li>{{ profesor.nombre }} ({{ profesor.especialidad }})</li>
-        {% empty %}
-            <li>No se han asignado profesores a este curso.</li>
-        {% endfor %}
-    </ul>
-    
-    <h2>Inscripciones</h2>
-    <ul>
-        {% for inscripcion in inscripciones %}
-            <li>
-                {{ inscripcion.estudiante.nombre }} {{ inscripcion.estudiante.apellido }} - 
-                Inscrito el: {{ inscripcion.fecha_inscripcion }}
-            </li>
-        {% empty %}
-            <li>No hay inscripciones registradas para este curso.</li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-5">
+        <h1 class="text-primary">{{ curso.titulo }}</h1>
+        
+        <nav class="mb-3">
+            <a href="{% url 'lista_cursos' %}" class="btn btn-outline-secondary btn-sm">Volver a la lista</a>
+            <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm">Inicio</a>
+        </nav>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>Créditos:</strong> {{ curso.creditos }}</p>
+                <p><strong>Descripción:</strong> {{ curso.descripcion }}</p>
+                <p><strong>Departamento:</strong> {{ curso.departamento.nombre }}</p>
+            </div>
+        </div>
+
+        <h2 class="h4">Profesores</h2>
+        <ul class="list-group mb-3">
+            {% for profesor in curso.profesores.all %}
+                <li class="list-group-item">{{ profesor.nombre }} ({{ profesor.especialidad }})</li>
+            {% empty %}
+                <li class="list-group-item text-muted">No se han asignado profesores.</li>
+            {% endfor %}
+        </ul>
+
+        <h2 class="h4">Inscripciones</h2>
+        <ul class="list-group">
+            {% for inscripcion in inscripciones %}
+                <li class="list-group-item">
+                    {{ inscripcion.estudiante.nombre }} {{ inscripcion.estudiante.apellido }} - 
+                    <small class="text-muted">Inscrito el: {{ inscripcion.fecha_inscripcion }}</small>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">No hay inscripciones registradas.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
