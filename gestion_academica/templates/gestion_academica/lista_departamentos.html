@@ -1,52 +1,38 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Listado de Departamentos</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container mt-4">
-    <h1>Departamentos</h1>
-    <nav class="mb-3">
-      <a href="{% url 'home' %}" class="btn btn-secondary">Inicio</a>
-      <a href="{% url 'crear_departamento' %}" class="btn btn-primary">Crear Nuevo Departamento</a>
-    </nav>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for departamento in departamentos %}
-          <tr>
-            <td>{{ departamento.id }}</td>
-            <td>{{ departamento.nombre }}</td>
-            <td>{{ departamento.descripcion }}</td>
-            <td>
-              <a href="{% url 'editar_departamento' departamento.id %}" class="btn btn-warning btn-sm">Editar</a>
-              <a href="{% url 'eliminar_departamento' departamento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="4" class="text-center">No hay departamentos registrados.</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+<div class="container mt-4">
+  <h1>Departamentos</h1>
   
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-{% endblock %}
-</html>
+  <nav class="mb-3">
+    <a href="{% url 'home' %}" class="btn btn-secondary">Inicio</a>
+    <a href="{% url 'crear_departamento' %}" class="btn btn-primary">Crear Nuevo Departamento</a>
+  </nav>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for departamento in departamentos %}
+        <tr>
+          <td>{{ departamento.id }}</td>
+          <td>{{ departamento.nombre }}</td>
+          <td>{{ departamento.descripcion }}</td>
+          <td>
+            <a href="{% url 'editar_departamento' departamento.id %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'eliminar_departamento' departamento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">No hay departamentos registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+ 
