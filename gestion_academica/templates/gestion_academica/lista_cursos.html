@@ -1,58 +1,43 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 
 {% block content %}
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Listado de Cursos</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container mt-4">
-    <h1 class="mb-4">Cursos</h1>
-    <nav class="mb-3">
-      <a href="{% url 'home' %}" class="btn btn-secondary">Inicio</a>
-      <a href="{% url 'crear_curso' %}" class="btn btn-primary">Crear Nuevo Curso</a>
-    </nav>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Créditos</th>
-          <th>Departamento</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for curso in cursos %}
-          <tr>
-            <td>{{ curso.id }}</td>
-            <td>{{ curso.titulo }}</td>
-            <td>{{ curso.creditos }}</td>
-            <td>{{ curso.departamento.nombre }}</td>
-            <td>
-              <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-info btn-sm">Ver</a>
-              <a href="{% url 'editar_curso' curso.id %}" class="btn btn-warning btn-sm">Editar</a>
-              <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="5" class="text-center">No hay cursos registrados.</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+<div class="container mt-4">
+  <h1 class="mb-4">Cursos</h1>
   
-  <!-- Scripts de Bootstrap y dependencias -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+  <nav class="mb-3">
+    <a href="{% url 'home' %}" class="btn btn-secondary">Inicio</a>
+    <a href="{% url 'crear_curso' %}" class="btn btn-primary">Crear Nuevo Curso</a>
+  </nav>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Créditos</th>
+        <th>Departamento</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for curso in cursos %}
+        <tr>
+          <td>{{ curso.id }}</td>
+          <td>{{ curso.titulo }}</td>
+          <td>{{ curso.creditos }}</td>
+          <td>{{ curso.departamento.nombre }}</td>
+          <td>
+            <a href="{% url 'detalle_curso' curso.id %}" class="btn btn-info btn-sm">Ver</a>
+            <a href="{% url 'editar_curso' curso.id %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No hay cursos registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
-</html>
