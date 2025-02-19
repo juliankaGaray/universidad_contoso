@@ -2,37 +2,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Detalle del Estudiante</title>
+    <title>Detalle - {{ titulo }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .container {
-            max-width: 600px;
+            max-width: 700px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-primary">Detalle de {{ estudiante.nombre }} {{ estudiante.apellido }}</h1>
-
+        <h1 class="text-primary">{{ titulo }}</h1>
+        
         <nav class="mb-3">
-            <a href="{% url 'lista_estudiantes' %}" class="btn btn-outline-secondary btn-sm">Volver a la lista</a>
+            <a href="{{ volver_url }}" class="btn btn-outline-secondary btn-sm">Volver</a>
             <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm">Inicio</a>
         </nav>
 
         <div class="card mb-3">
             <div class="card-body">
-                <p><strong>Fecha de Inscripción:</strong> {{ estudiante.fecha_inscripcion }}</p>
+                {% for clave, valor in informacion.items %}
+                    <p><strong>{{ clave }}:</strong> {{ valor }}</p>
+                {% endfor %}
             </div>
         </div>
 
-        {% if historial %}
-            <h2 class="h4">Historial Académico</h2>
+        {% if lista_items %}
+            <h2 class="h4">{{ lista_titulo }}</h2>
             <ul class="list-group mb-3">
-                <li class="list-group-item"><strong>Promedio General:</strong> {{ historial.promedio_general }}</li>
-                <li class="list-group-item"><strong>Estado:</strong> {{ historial.estado }}</li>
+                {% for item in lista_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ item.nombre }}</span>
+                        <small class="text-muted">{{ item.extra_info }}</small>
+                    </li>
+                {% endfor %}
             </ul>
         {% else %}
-            <div class="alert alert-warning">Este estudiante aún no tiene un historial académico registrado.</div>
+            <div class="alert alert-warning">No hay registros disponibles.</div>
         {% endif %}
     </div>
 
@@ -41,3 +51,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+    

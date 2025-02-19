@@ -5,17 +5,89 @@
   <title>Editar Curso</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    /* Estilos generales */
+    body {
+      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+    }
+
     .container {
       max-width: 600px;
+    }
+
+    /* Títulos */
+    h1 {
+      color: #004b5b;
+      font-weight: bold;
+    }
+
+    h3 {
+      color: #7f8c8d;
+    }
+
+    /* Tarjeta de edición */
+    .card {
+      background: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* Formulario */
+    form {
+      font-size: 1rem;
+    }
+
+    input, select, textarea {
+      border-radius: 5px;
+      border: 1px solid #bdc3c7;
+      padding: 8px;
+      width: 100%;
+    }
+
+    /* Botones */
+    .d-flex {
+      margin-top: 15px;
+    }
+
+    .btn {
+      min-width: 120px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .btn-warning {
+      background-color: #004b5b;
+      border-color: #e67e22;
+      color: #fff;
+    }
+
+    .btn-warning:hover {
+      background-color: #e67e22;
+    }
+
+    .btn-secondary {
+      background-color: #7f8c8d;
+      border-color: #707b7c;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #707b7c;
     }
   </style>
 </head>
 <body>
   <div class="container mt-5">
-    <h1 class="text-center text-primary">Editar Curso</h1>
-    <h3 class="text-center text-muted">{{ curso.titulo }}</h3>
+    <h1 class="text-center">Editar Curso</h1>
+    <h3 class="text-center">{{ curso.titulo }}</h3>
     
-    <div class="card shadow-sm mt-4">
+    <div class="card mt-4">
       <div class="card-body">
         <form method="post">
           {% csrf_token %}
