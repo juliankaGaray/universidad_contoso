@@ -1,0 +1,16 @@
+### 🔹 **Diagrama de Secuencia: Profesor**
+
+@startuml
+title DIAGRAMA DE SECUENCIA - PROFESOR
+
+actor Profesor
+participant "Sistema de Gestión Académica" as Sistema
+participant "Base de Datos" as BD
+
+'Profesor asigna una evaluación
+Profesor -> Sistema: Crear evaluación para curso
+Sistema -> BD: Guardar evaluación
+BD --> Sistema: Confirmación de evaluación creada
+Sistema --> Profesor: Confirmación de evaluación
+
+@enduml

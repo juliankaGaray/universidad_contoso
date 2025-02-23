@@ -1,0 +1,75 @@
+@startuml
+'========================='
+'    DIAGRAMA FÍSICO (UML)  '
+'========================='
+
+package "Modelo Físico" {
+    entity Usuario {
+        * id: INT <<PK>>
+        * nombre: VARCHAR(100)
+        * email: VARCHAR(100) <<UNIQUE>>
+        * telefono: VARCHAR(15) NULL
+    }
+
+    entity Estudiante {
+        * id_usuario: INT <<PK,FK>>
+        * fecha_inscripcion: DATE
+    }
+
+    entity Profesor {
+        * id_usuario: INT <<PK,FK>>
+        * especialidad: VARCHAR(100)
+    }
+
+    entity Departamento {
+        * id: INT <<PK>>
+        * nombre: VARCHAR(100)
+        * descripcion: TEXT
+    }
+
+    entity Curso {
+        * id: INT <<PK>>
+        * titulo: VARCHAR(200)
+        * creditos: INT
+        * descripcion: TEXT
+        * id_departamento: INT <<FK>>
+    }
+
+    entity Curso_Profesor {
+        * id_curso: INT <<PK,FK>>
+        * id_profesor: INT <<PK,FK>>
+    }
+
+    entity Inscripcion {
+        * id: INT <<PK>>
+        * id_estudiante: INT <<FK>>
+        * id_curso: INT <<FK>>
+        * fecha_inscripcion: DATE
+    }
+
+    entity Evaluacion {
+        * id: INT <<PK>>
+        * id_inscripcion: INT <<FK>>
+        * tipo: VARCHAR(50)
+        * nota: FLOAT
+        * fecha: DATE
+    }
+
+    entity HistorialAcademico {
+        * id_estudiante: INT <<PK,FK>>
+        * promedio_general: FLOAT
+        * estado: VARCHAR(50)
+    }
+
+    Usuario ||--o{ Estudiante
+    Usuario ||--o{ Profesor
+    Departamento ||--o{ Curso
+    Curso }o--o{ Curso_Profesor
+    Profesor }o--o{ Curso_Profesor
+    Estudiante ||--o{ Inscripcion
+    Curso ||--o{ Inscripcion
+    Inscripcion ||--o{ Evaluacion
+    Estudiante ||--|| HistorialAcademico
+}
+
+@enduml

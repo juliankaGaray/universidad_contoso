@@ -1,0 +1,55 @@
+@startuml
+
+title   DIAGRAMA CONCEPTUAL   
+
+
+entity Usuario <<abstract>> {
+    nombre: Char(100)
+    email: Email (unique)
+    telefono: Char(15)
+}
+
+entity Estudiante {
+    fecha_inscripcion: Date
+}
+
+entity Profesor {
+    especialidad: Char(100)
+}
+
+entity Departamento {
+    nombre: Char(100)
+    descripcion: Text
+}
+
+entity Curso {
+    titulo: Char(200)
+    creditos: Integer
+    descripcion: Text
+}
+
+entity Inscripcion {
+    fecha_inscripcion: Date
+}
+
+entity Evaluacion {
+    tipo: Char(50)
+    nota: Float
+    fecha: Date
+}
+
+entity HistorialAcademico {
+    promedio_general: Float
+    estado: Char(50)
+}
+
+Usuario <|-- Estudiante
+Usuario <|-- Profesor
+Departamento ||--o{ Curso : "1:N"
+Curso }o--o{ Profesor : "N:M"
+Estudiante ||--o{ Inscripcion : "1:N"
+Curso ||--o{ Inscripcion : "1:N"
+Inscripcion ||--o{ Evaluacion : "1:N"
+Estudiante ||--|| HistorialAcademico : "1:1"
+
+@enduml

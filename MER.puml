@@ -1,0 +1,64 @@
+@startuml
+
+
+
+
+title   DIAGRAMA ENDITAD RELACION (MER)
+package "Modelo Entidad Relación" {
+    abstract class Usuario {
+        +nombre: String [1]
+        +email: String [1] {unique}
+        +telefono: String [0..1]
+    }
+
+    class Estudiante extends Usuario {
+        +fecha_inscripcion: Date [1]
+    }
+
+    class Profesor extends Usuario {
+        +especialidad: String [1]
+    }
+
+    class Departamento {
+        +id: Integer [1] {PK}
+        +nombre: String [1]
+        +descripcion: Text [1]
+    }
+
+    class Curso {
+        +id: Integer [1] {PK}
+        +titulo: String [1]
+        +creditos: Integer [1]
+        +descripcion: Text [1]
+    }
+
+    class Inscripcion {
+        +id: Integer [1] {PK}
+        +fecha_inscripcion: Date [1]
+    }
+
+    class Evaluacion {
+        +id: Integer [1] {PK}
+        +tipo: String [1]
+        +nota: Float [1]
+        +fecha: Date [1]
+    }
+
+    class HistorialAcademico {
+        +promedio_general: Float [1]
+        +estado: String [1]
+    }
+
+    Usuario <|-- Estudiante
+    Usuario <|-- Profesor
+    Departamento "1" --> "*" Curso : pertenece
+    Curso "*" -- "*" Profesor : dicta
+    Estudiante "1" --> "*" Inscripcion : inscribe
+    Curso "1" --> "*" Inscripcion : corresponde
+    Inscripcion "1" --> "*" Evaluacion : evalua
+    Estudiante "1" --> "1" HistorialAcademico : posee
+}
+
+@enduml
+
+

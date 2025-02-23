@@ -1,0 +1,33 @@
+### 🔹 **Diagrama de Secuencia: Estudiante**
+
+```
+@startuml
+title DIAGRAMA DE SECUENCIA - ESTUDIANTE
+
+actor Estudiante
+participant "Sistema de Gestión Académica" as Sistema
+participant "Base de Datos" as BD
+
+'Estudiante se inscribe en un curso
+Estudiante -> Sistema: Solicitar lista de cursos disponibles
+Sistema -> BD: Consultar cursos disponibles
+BD --> Sistema: Retornar lista de cursos
+Sistema --> Estudiante: Mostrar lista de cursos
+Estudiante -> Sistema: Seleccionar curso para inscripción
+Sistema -> BD: Registrar inscripción del estudiante
+BD --> Sistema: Confirmar inscripción
+Sistema --> Estudiante: Confirmación de inscripción
+
+'Estudiante visualiza su historial académico
+Estudiante -> Sistema: Solicitar historial académico
+Sistema -> BD: Obtener historial académico
+BD --> Sistema: Retornar historial académico
+Sistema --> Estudiante: Mostrar historial académico
+
+'Estudiante consulta resultados de evaluación
+Estudiante -> Sistema: Consultar resultados de evaluación
+Sistema -> BD: Obtener resultados de evaluación
+BD --> Sistema: Retornar resultados
+Sistema --> Estudiante: Mostrar resultados de evaluación
+
+@enduml

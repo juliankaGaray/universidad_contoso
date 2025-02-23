@@ -1,0 +1,15 @@
+### 🔹 **Diagrama de Secuencia: Administrador**
+@startuml
+title DIAGRAMA DE SECUENCIA - ADMINISTRADOR
+
+actor Administrador
+participant "Sistema de Gestión Académica" as Sistema
+participant "Base de Datos" as BD
+
+'Administrador gestiona cursos
+Administrador -> Sistema: Crear nuevo curso
+Sistema -> BD: Insertar curso en la base de datos
+BD --> Sistema: Confirmación de curso creado
+Sistema --> Administrador: Confirmación de creación exitosa
+
+@enduml
