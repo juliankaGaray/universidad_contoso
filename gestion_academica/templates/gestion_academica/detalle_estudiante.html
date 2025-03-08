@@ -1,54 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Detalle - {{ titulo }}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .container {
-            max-width: 700px;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Detalle de Profesor</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Estilos generales */
+    body {
+      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    /* Tarjeta de información */
+    .card {
+      background: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .list-group-item {
+      font-size: 1rem;
+      color: #34495e;
+      background-color: #ecf0f1;
+      border: none;
+    }
+
+    /* Botones */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-width: 110px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .btn-warning {
+      background-color: #004b5b;
+      border-color: #e67e22;
+      color: #fff;
+    }
+
+    .btn-warning:hover {
+      background-color: #e67e22;
+    }
+
+    .btn-danger {
+      background-color: #c0392b;
+      border-color: #a93226;
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background-color: #a93226;
+    }
+
+    .btn-secondary {
+      background-color: #7f8c8d;
+      border-color: #707b7c;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #707b7c;
+    }
+  </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-primary">{{ titulo }}</h1>
-        
-        <nav class="mb-3">
-            <a href="{{ volver_url }}" class="btn btn-outline-secondary btn-sm">Volver</a>
-            <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm">Inicio</a>
-        </nav>
-
-        <div class="card mb-3">
-            <div class="card-body">
-                {% for clave, valor in informacion.items %}
-                    <p><strong>{{ clave }}:</strong> {{ valor }}</p>
-                {% endfor %}
-            </div>
+  <div class="container mt-5">
+    <h1 class="text-primary text-center">Detalle del estudiante</h1>
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">{{ estudiante.nombre }}</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Email:</strong> {{ estudiante.email }}</li>
+          <li class="list-group-item"><strong>Teléfono:</strong> {{ estudiante.telefono }}</li>
+        </ul>
+            <div class="btn-group">
+          <a href="{% url 'editar_estudiante' estudiante.id  %}" class="btn btn-warning" aria-label="Editar estudiante">Editar</a>
+          <a href="{% url 'eliminar_estudiante' estudiante.id %}" class="btn btn-danger" aria-label="Eliminar estudiante">Eliminar</a>
+          <a href="{% url 'lista_estudiantes' %}" class="btn btn-secondary" aria-label="Volver al listado">Volver</a>
         </div>
-
-        {% if lista_items %}
-            <h2 class="h4">{{ lista_titulo }}</h2>
-            <ul class="list-group mb-3">
-                {% for item in lista_items %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>{{ item.nombre }}</span>
-                        <small class="text-muted">{{ item.extra_info }}</small>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div class="alert alert-warning">No hay registros disponibles.</div>
-        {% endif %}
+      </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-    
