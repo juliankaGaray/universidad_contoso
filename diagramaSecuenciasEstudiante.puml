@@ -2,7 +2,9 @@
 
 ```
 @startuml
+
 title DIAGRAMA DE SECUENCIA - ESTUDIANTE
+
 
 actor Estudiante
 participant "Sistema de Gestión Académica" as Sistema
@@ -29,5 +31,6 @@ Estudiante -> Sistema: Consultar resultados de evaluación
 Sistema -> BD: Obtener resultados de evaluación
 BD --> Sistema: Retornar resultados
 Sistema --> Estudiante: Mostrar resultados de evaluación
+
 
 @enduml

@@ -1,45 +1,124 @@
 @startuml
-title DIAGRAMA DE SECUENCIA
-
+actor Administrador
 actor Estudiante
 actor Profesor
-actor Administrador
 
-participant "Sistema de Gestión Académica" as Sistema
+participant "Gestión Académica" as GA
 participant "Base de Datos" as BD
 
-'Estudiante se inscribe en un curso
-Estudiante -> Sistema: Solicitar lista de cursos disponibles
-Sistema -> BD: Consultar cursos disponibles
-BD --> Sistema: Retornar lista de cursos
-Sistema --> Estudiante: Mostrar lista de cursos
-Estudiante -> Sistema: Seleccionar curso para inscripción
-Sistema -> BD: Registrar inscripción del estudiante
-BD --> Sistema: Confirmar inscripción
-Sistema --> Estudiante: Confirmación de inscripción
+== Gestión de Estudiantes ==
+Administrador -> GA : crearEstudiante(nombre, documento, email)
+GA -> BD : guardarEstudiante()
+BD --> GA : confirmación
+GA --> Administrador : Estudiante creado
 
-'Estudiante visualiza su historial académico
-Estudiante -> Sistema: Solicitar historial académico
-Sistema -> BD: Obtener historial académico
-BD --> Sistema: Retornar historial académico
-Sistema --> Estudiante: Mostrar historial académico
+Administrador -> GA : verEstudiante(documento)
+GA -> BD : buscarEstudiante()
+BD --> GA : datos del estudiante
+GA --> Administrador : muestra datos
 
-'Profesor asigna una evaluación
-Profesor -> Sistema: Crear evaluación para curso
-Sistema -> BD: Guardar evaluación
-BD --> Sistema: Confirmación de evaluación creada
-Sistema --> Profesor: Confirmación de evaluación
+Administrador -> GA : actualizarEstudiante(documento, nuevosDatos)
+GA -> BD : actualizarDatos()
+BD --> GA : confirmación
+GA --> Administrador : Estudiante actualizado
 
-'Estudiante consulta resultados de evaluación
-Estudiante -> Sistema: Consultar resultados de evaluación
-Sistema -> BD: Obtener resultados de evaluación
-BD --> Sistema: Retornar resultados
-Sistema --> Estudiante: Mostrar resultados de evaluación
+Administrador -> GA : eliminarEstudiante(documento)
+GA -> BD : eliminarRegistro()
+BD --> GA : confirmación
+GA --> Administrador : Estudiante eliminado
 
-'Administrador gestiona cursos
-Administrador -> Sistema: Crear nuevo curso
-Sistema -> BD: Insertar curso en la base de datos
-BD --> Sistema: Confirmación de curso creado
-Sistema --> Administrador: Confirmación de creación exitosa
+Estudiante -> GA : inscribirseEnCurso(idCurso)
+GA -> BD : verificarDisponibilidad()
+BD --> GA : confirmación
+GA -> BD : registrarInscripción()
+BD --> GA : inscripción exitosa
+GA --> Estudiante : confirmación
+
+== Gestión de Cursos ==
+Administrador -> GA : crearCurso(nombre, creditos, departamento)
+GA -> BD : guardarCurso()
+BD --> GA : confirmación
+GA --> Administrador : Curso creado
+
+Administrador -> GA : listarCursos()
+GA -> BD : consultarCursos()
+BD --> GA : lista de cursos
+GA --> Administrador : muestra lista
+
+Administrador -> GA : actualizarCurso(idCurso, nuevosDatos)
+GA -> BD : actualizarCurso()
+BD --> GA : confirmación
+GA --> Administrador : Curso actualizado
+
+Administrador -> GA : eliminarCurso(idCurso)
+GA -> BD : eliminarCurso()
+BD --> GA : confirmación
+GA --> Administrador : Curso eliminado
+
+Administrador -> GA : asignarProfesor(idCurso, idProfesor)
+GA -> BD : verificarDisponibilidadProfesor()
+BD --> GA : disponible
+GA -> BD : registrarAsignación()
+BD --> GA : asignación confirmada
+GA --> Administrador : Profesor asignado
+
+Profesor -> GA : listarCursosAsignados()
+GA -> BD : consultarAsignaciones()
+BD --> GA : lista de cursos
+GA --> Profesor : muestra cursos
+
+== Gestión de Profesores ==
+Administrador -> GA : crearProfesor(nombre, documento, especialidad)
+GA -> BD : guardarProfesor()
+BD --> GA : confirmación
+GA --> Administrador : Profesor creado
+
+Administrador -> GA : verProfesor(documento)
+GA -> BD : buscarProfesor()
+BD --> GA : datos del profesor
+GA --> Administrador : muestra datos
+
+Administrador -> GA : actualizarProfesor(documento, nuevosDatos)
+GA -> BD : actualizarDatos()
+BD --> GA : confirmación
+GA --> Administrador : Profesor actualizado
+
+Administrador -> GA : eliminarProfesor(documento)
+GA -> BD : eliminarRegistro()
+BD --> GA : confirmación
+GA --> Administrador : Profesor eliminado
+
+Profesor -> GA : asignarNotas(idCurso, documento, nota)
+GA -> BD : verificarInscripción()
+BD --> GA : inscrito
+GA -> BD : guardarNota()
+BD --> GA : nota guardada
+GA --> Profesor : confirmación
+
+== Gestión de Departamentos ==
+Administrador -> GA : crearDepartamento(nombre)
+GA -> BD : guardarDepartamento()
+BD --> GA : confirmación
+GA --> Administrador : Departamento creado
+
+Administrador -> GA : verDepartamento(idDepartamento)
+GA -> BD : buscarDepartamento()
+BD --> GA : datos del departamento
+GA --> Administrador : muestra datos
+
+Administrador -> GA : actualizarDepartamento(idDepartamento, nuevosDatos)
+GA -> BD : actualizarDatos()
+BD --> GA : confirmación
+GA --> Administrador : Departamento actualizado
+
+Administrador -> GA : eliminarDepartamento(idDepartamento)
+GA -> BD : eliminarRegistro()
+BD --> GA : confirmación
+GA --> Administrador : Departamento eliminado
+
+Administrador -> GA : listarCursosDepartamento(idDepartamento)
+GA -> BD : consultarCursos()
+BD --> GA : lista de cursos
+GA --> Administrador : muestra lista
 
 @enduml

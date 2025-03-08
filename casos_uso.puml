@@ -1,37 +1,91 @@
 @startuml
+title DIAGRAMA DE CLASES
+package "DIAGRAMA DE CLASES " {
+skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
-' Actores
-actor Estudiante
-actor Profesor
-actor Departamento
-
-' Casos de uso
-rectangle Sistema {
-    (Inscribirse en Curso) as (Inscribirse)
-    (Impartir Curso) as (Impartir)
-    (Gestionar Cursos) as (Gestionar)
-    (Evaluar Estudiante) as (Evaluar)
-    (Consultar Historial Académico) as (ConsultarHistorial)
-    (Registrar Evaluación) as (RegistrarEvaluacion)
-    (Ofrecer Curso) as (Ofrecer)
-    (Gestionar Profesores) as (GestionarProfesores)
+' Clase base
+class Usuario {
+    + ID : int
+    + nombre : str
+    + email : str
+    + telefono : str
+    + contraseña : str
+    + __str__() : str
+    + autenticar(email, contraseña) : bool
+    + actualizar_datos(nombre, email, telefono) : void
 }
 
-' Relaciones entre actores y casos de uso
-Estudiante --> (Inscribirse)
-Estudiante --> (ConsultarHistorial)
-Profesor --> (Impartir)
-Profesor --> (Evaluar)
-Profesor --> (RegistrarEvaluacion)
-Departamento --> (Gestionar)
-Departamento --> (Ofrecer)
-Departamento --> (GestionarProfesores)
+' Herencia
+class Estudiante {
+    + fecha_inscripcion : date
+    + matricula : str
+    + nivel : int
+    + inscribirse_curso(curso : Curso) : bool
+    + consultar_historial() : HistorialAcademico
+}
+class Profesor {
+    + especialidad : str
+    + salario : float
+    + asignar_nota(evaluacion : Evaluacion, nota : float) : void
+    + listar_cursos() : list<Curso>
+}
 
-' Relaciones entre casos de uso
-(Inscribirse) .> (ConsultarHistorial) : incluye
-(Impartir) .> (Evaluar) : incluye
-(Gestionar) .> (Ofrecer) : incluye
-(Gestionar) .> (GestionarProfesores) : incluye
+Usuario <|-- Estudiante
+Usuario <|-- Profesor
+
+' Otras clases
+class Curso {
+    + ID : int
+    + titulo : str
+    + creditos : int
+    + descripcion : str
+    + horario : str
+    + cupo_maximo : int
+    + agregar_estudiante(estudiante : Estudiante) : bool
+    + listar_profesores() : list<Profesor>
+}
+
+class Inscripcion {
+    + ID : int
+    + fecha_inscripcion : date
+    + estado : str
+    + realizar_pago(monto : float) : bool
+}
+
+class Evaluacion {
+    + ID : int
+    + tipo : str
+    + nota : float
+    + fecha : date
+    + peso : float
+    + calcular_promedio(estudiante : Estudiante) : float
+}
+
+class Departamento {
+    + ID : int
+    + nombre : str
+    + descripcion : str
+    + director : Profesor
+    + asignar_profesor(profesor : Profesor, curso : Curso) : void
+}
+
+class HistorialAcademico {
+    + ID : int
+    + promedio_general : float
+    + estado : str
+    + cursos_aprobados : list<Curso>
+    + calcular_promedio() : float
+}
+
+' Relaciones complejas
+Estudiante "1" -- "0..*" Inscripcion : "realiza"
+Curso "1" -- "0..*" Inscripcion : "incluye"
+Profesor "0..*" -- "0..*" Curso : "imparte"
+Inscripcion "1" -- "0..*" Evaluacion : "evalúa"
+Departamento "1" -- "0..*" Curso : "ofrece"
+Departamento "1" -- "0..*" Profesor : "gestiona"
+Estudiante "1" -- "1" HistorialAcademico : "posee"
+}
 
 @enduml
