@@ -1,91 +1,61 @@
 @startuml
-title DIAGRAMA DE CLASES
-package "DIAGRAMA DE CLASES " {
-skinparam classAttributeIconSize 0
-skinparam linetype ortho
 
-' Clase base
-class Usuario {
-    + ID : int
-    + nombre : str
-    + email : str
-    + telefono : str
-    + contraseña : str
-    + __str__() : str
-    + autenticar(email, contraseña) : bool
-    + actualizar_datos(nombre, email, telefono) : void
+left to right direction
+
+actor Usuario
+actor Estudiante
+actor Profesor
+actor Administrador
+actor Departamento
+
+rectangle "Gestión de Usuarios" {
+    Usuario -- (Autenticar Usuario)
+    Usuario -- (Actualizar Datos del Usuario)
 }
 
-' Herencia
-class Estudiante {
-    + fecha_inscripcion : date
-    + matricula : str
-    + nivel : int
-    + inscribirse_curso(curso : Curso) : bool
-    + consultar_historial() : HistorialAcademico
-}
-class Profesor {
-    + especialidad : str
-    + salario : float
-    + asignar_nota(evaluacion : Evaluacion, nota : float) : void
-    + listar_cursos() : list<Curso>
+rectangle "Gestión de Estudiantes" {
+    Estudiante -- (Inscribirse en un Curso)
+    Estudiante -- (Consultar Historial Académico)
+    Administrador -- (Crear Estudiante)
+    Administrador -- (Actualizar Estudiante)
+    Administrador -- (Eliminar Estudiante)
+    Administrador -- (Ver Estudiante)
 }
 
-Usuario <|-- Estudiante
-Usuario <|-- Profesor
-
-' Otras clases
-class Curso {
-    + ID : int
-    + titulo : str
-    + creditos : int
-    + descripcion : str
-    + horario : str
-    + cupo_maximo : int
-    + agregar_estudiante(estudiante : Estudiante) : bool
-    + listar_profesores() : list<Profesor>
+rectangle "Gestión de Profesores" {
+    Profesor -- (Asignar Notas)
+    Profesor -- (Listar Cursos Asignados)
+    Administrador -- (Crear Profesor)
+    Administrador -- (Actualizar Profesor)
+    Administrador -- (Eliminar Profesor)
+    Administrador -- (Ver Profesor)
 }
 
-class Inscripcion {
-    + ID : int
-    + fecha_inscripcion : date
-    + estado : str
-    + realizar_pago(monto : float) : bool
+rectangle "Gestión de Cursos" {
+    Administrador -- (Crear Curso)
+    Administrador -- (Actualizar Curso)
+    Administrador -- (Eliminar Curso)
+    Estudiante -- (Listar Cursos)
+    Profesor -- (Listar Cursos)
+    Administrador -- (Asignar Profesor a Curso)
 }
 
-class Evaluacion {
-    + ID : int
-    + tipo : str
-    + nota : float
-    + fecha : date
-    + peso : float
-    + calcular_promedio(estudiante : Estudiante) : float
+rectangle "Gestión de Inscripciones" {
+    Estudiante -- (Registrar Inscripción)
+    Estudiante -- (Realizar Pago de Inscripción)
 }
 
-class Departamento {
-    + ID : int
-    + nombre : str
-    + descripcion : str
-    + director : Profesor
-    + asignar_profesor(profesor : Profesor, curso : Curso) : void
+rectangle "Gestión de Evaluaciones" {
+    Profesor -- (Calcular Promedio de Evaluaciones)
 }
 
-class HistorialAcademico {
-    + ID : int
-    + promedio_general : float
-    + estado : str
-    + cursos_aprobados : list<Curso>
-    + calcular_promedio() : float
-}
-
-' Relaciones complejas
-Estudiante "1" -- "0..*" Inscripcion : "realiza"
-Curso "1" -- "0..*" Inscripcion : "incluye"
-Profesor "0..*" -- "0..*" Curso : "imparte"
-Inscripcion "1" -- "0..*" Evaluacion : "evalúa"
-Departamento "1" -- "0..*" Curso : "ofrece"
-Departamento "1" -- "0..*" Profesor : "gestiona"
-Estudiante "1" -- "1" HistorialAcademico : "posee"
+rectangle "Gestión de Departamentos" {
+    Administrador -- (Crear Departamento)
+    Administrador -- (Actualizar Departamento)
+    Administrador -- (Eliminar Departamento)
+    Administrador -- (Ver Departamento)
+    Departamento -- (Asignar Profesor a un Curso)
+    Departamento -- (Listar Cursos de un Departamento)
 }
 
 @enduml
